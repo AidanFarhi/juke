@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const {db, Album, Artist, Song} = require('../server/db')
+const db = require('../server/db/db')
+const {Album, Artist, Song} = require('../server/db')
 const songs = JSON.parse(fs.readFileSync('songs.json', 'utf8'))
+
+console.log(db)
 
 const seed = async () => {
   await db.sync({force: true})
