@@ -9,7 +9,6 @@ export default function AllAlbums(props) {
 
   const getAlbumData = () => {
     setState({
-      // add the props to each album item * here * 
       albums: props.albums[0].map((album, i) => <Album key={i} data={album}/>),
       isLoading: false
     })
@@ -26,9 +25,6 @@ export default function AllAlbums(props) {
       <div className='container'>
         <div id='albums' className='row wrap'>
           {state.albums}
-          {/* <Album />
-          <Album />
-          <Album /> */}
         </div>
       </div>
   )

@@ -1,4 +1,4 @@
-const { json } = require('express')
+
 const router = require('express').Router()
 const { Album } = require('../db/index')
 const Artist = require('../db/artist')
