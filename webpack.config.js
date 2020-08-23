@@ -1,3 +1,4 @@
+
 module.exports = {
   entry: ['babel-polyfill', './client/index.js'],
   output: {
@@ -15,5 +16,14 @@ module.exports = {
         loader: 'babel-loader'
       }
     ]
-  }
+  },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty',
+    tedious: 'empty',
+    dgram: 'empty',
+    child_process: 'empty',
+  },
 }

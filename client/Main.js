@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Sidebar from '../client/components/Sidebar'
 import AllAlbums from '../client/components/AllAlbums'
 import Player from '../client/components/Player'
-import Album from '../server/db/album'
-import { Artist } from '../server/db'
+import { json } from 'sequelize'
 
 const data = [
   {
@@ -41,22 +40,25 @@ const data = [
 
 export default function Main() {
   const [state, setState] = useState({
-    albums: [data],
+    albums: [],
     isLoading: true
   })
 
   const getData = async() => {
     try {
-      const albumData = await Album.findAll({include: Artist})
-      console.log(albumData)
+      const response = await fetch('http://localhost:8080/api/albums')
+      const albumsData = await response.json()
       setState({
+        albums: albumsData,
         isLoading: false
       })
     } catch(err) {console.log(err)}
   }
 
   useEffect(()=> {
+    console.log(state.albums)
     if (state.isLoading) {
+      console.log('hit')
       getData()
     }
   })

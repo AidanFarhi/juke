@@ -7,15 +7,15 @@ export default function AllAlbums(props) {
     isLoading: true
   })
 
-  const getAlbumData = () => {
+  const getAlbumData = async () => {
     setState({
-      albums: props.albums[0].map((album, i) => <Album key={i} data={album}/>),
+      albums: props.albums.map((album, i) => <Album key={i} data={album}/>),
       isLoading: false
     })
   }
 
   useEffect(()=> {
-    if (state.isLoading) {
+    if (state.albums.length === 0) {
       getAlbumData()
     }
   })
