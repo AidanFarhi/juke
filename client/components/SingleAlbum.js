@@ -6,8 +6,6 @@ export default function SingleAlbum(props) {
         isLoading: true
     })
 
-    console.log(props)
-
     return (
         <div className='container'>
             <div id='single-album' className='column'>

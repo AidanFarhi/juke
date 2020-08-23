@@ -5,27 +5,6 @@ import AllAlbums from '../client/components/AllAlbums'
 import Player from '../client/components/Player'
 import SingelAlbum from '../client/components/SingleAlbum'
 
-const album = {
-  "id": 3,
-  "name": "Chain React-ion",
-  "artworkUrl": "default-album.jpg",
-  "artistId": 1,
-  "artist": {
-    "id": 1,
-    "name": "The Crash Test Dummies",
-  },
-  "songs": [
-    {
-      "id": 13,
-      "name": "Set Some State",
-      "audioUrl": "https://storage.googleapis.com/juke-1379.appspot.com/juke-music/Dexter%20Britain/Zenith/01%20Shooting%20Star.mp3",
-      "genre": "Instrumental",
-      "albumId": 2,
-      "artistId": 1
-    }
-  ]
-}
-
 export default function Main() {
   const [state, setState] = useState({
     albums: [],
@@ -41,6 +20,7 @@ export default function Main() {
       setState({
         albums: albumsData,
         isLoading: false,
+        albumSelected: false
       })
     } catch(err) {console.log(err)}
   }
@@ -52,9 +32,13 @@ export default function Main() {
       setState({
         selectedAlbum: {album},
         isLoading: false,
-        albumSelected: true
+        albumSelected: true,
       })
     } catch(err) {console.log(err)}
+  }
+
+  const allAlbumsToggle = () => {
+    getData()
   }
 
   useEffect(()=> {
@@ -65,7 +49,7 @@ export default function Main() {
 
   return (
     <div id='main' className='row container'>
-      <Sidebar />
+      <Sidebar method={allAlbumsToggle}/>
       {!state.albumSelected ? 
         <AllAlbums method={getAlbum} albums={state.albums}/> : 
         <SingelAlbum data={state.selectedAlbum}/>}
