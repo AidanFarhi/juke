@@ -9,6 +9,7 @@ const Song = require('./song')
 Album.hasMany(Song, {foreignKey: 'albumId'})
 Album.belongsTo(Artist)
 Song.belongsTo(Album)
+Song.belongsTo(Artist)
 Artist.hasMany(Song, {foreignKey: 'artistId'})
 Artist.hasMany(Album, {foreignKey: 'artistId'})
 

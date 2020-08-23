@@ -3,45 +3,35 @@ import React, { useState, useEffect } from 'react'
 import Sidebar from '../client/components/Sidebar'
 import AllAlbums from '../client/components/AllAlbums'
 import Player from '../client/components/Player'
-import { json } from 'sequelize'
+import SingelAlbum from '../client/components/SingleAlbum'
 
-const data = [
-  {
+const album = {
+  "id": 3,
+  "name": "Chain React-ion",
+  "artworkUrl": "default-album.jpg",
+  "artistId": 1,
+  "artist": {
     "id": 1,
-    "name": "No Dummy",
-    "artworkUrl": "default-album.jpg",
-    "artistId": 1,
-    "artist": {
-      "id": 1,
-      "name": "The Crash Test Dummies"
-    }
+    "name": "The Crash Test Dummies",
   },
-  {
-    "id": 2,
-    "name": "I React to State",
-    "artworkUrl": "default-album.jpg",
-    "artistId": 1,
-    "artist": {
- "id": 1,
-      "name": "The Crash Test Dummies"
+  "songs": [
+    {
+      "id": 13,
+      "name": "Set Some State",
+      "audioUrl": "https://storage.googleapis.com/juke-1379.appspot.com/juke-music/Dexter%20Britain/Zenith/01%20Shooting%20Star.mp3",
+      "genre": "Instrumental",
+      "albumId": 2,
+      "artistId": 1
     }
-  },
-  {
-    "id": 3,
-    "name": "The Nutcracker",
-    "artworkUrl": "default-album.jpg",
-    "artistId": 6,
-    "artist": {
- "id": 1,
-      "name": "Mozart"
-    }
-  }
-]
+  ]
+}
 
 export default function Main() {
   const [state, setState] = useState({
     albums: [],
-    isLoading: true
+    isLoading: true,
+    selectedAlbum: {},
+    albumSelected: false
   })
 
   const getData = async() => {
@@ -50,23 +40,35 @@ export default function Main() {
       const albumsData = await response.json()
       setState({
         albums: albumsData,
-        isLoading: false
+        isLoading: false,
+      })
+    } catch(err) {console.log(err)}
+  }
+
+  const getAlbum = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/albums/${id}`)
+      const album = await response.json()
+      setState({
+        selectedAlbum: {album},
+        isLoading: false,
+        albumSelected: true
       })
     } catch(err) {console.log(err)}
   }
 
   useEffect(()=> {
-    console.log(state.albums)
     if (state.isLoading) {
-      console.log('hit')
       getData()
     }
   })
-  
+
   return (
     <div id='main' className='row container'>
       <Sidebar />
-      <AllAlbums albums={state.albums}/>
+      {!state.albumSelected ? 
+        <AllAlbums method={getAlbum} albums={state.albums}/> : 
+        <SingelAlbum data={state.selectedAlbum}/>}
       <Player />
       {/* The music starts here! */}
     </div>

@@ -7,9 +7,12 @@ export default function AllAlbums(props) {
     isLoading: true
   })
 
-  const getAlbumData = async () => {
+  const getAlbumData = () => {
     setState({
-      albums: props.albums.map((album, i) => <Album key={i} data={album}/>),
+      albums: props.albums.map((album, i) => <Album method={props.method} 
+                                                    key={i} 
+                                                    data={album}
+                                              />),
       isLoading: false
     })
   }

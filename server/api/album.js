@@ -13,7 +13,7 @@ router.get('/', async(req, res, next) => {
 
 router.get('/:id', async(req, res, next) => {
     try {
-        const album = await Album.findOne({where: {id: req.params.id}, include: Song})
+        const album = await Album.findOne({where: {id: req.params.id}, include: [Song, Artist]})
         res.send(album)
     } catch(err) {next(err)}
 })
