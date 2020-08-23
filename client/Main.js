@@ -53,7 +53,6 @@ export default function Main() {
       {!state.albumSelected ? 
         <AllAlbums method={getAlbum} albums={state.albums}/> : 
         <SingelAlbum data={state.selectedAlbum}/>}
-      <Player />
       {/* The music starts here! */}
     </div>
   )
