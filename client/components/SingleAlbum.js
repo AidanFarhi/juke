@@ -47,11 +47,27 @@ export default function SingleAlbum(props) {
             index++
         }
         const nextSong = state.songs[index]
+        const id = nextSong.props.data.id
+        const url = nextSong.props.data.audioUrl
+        playSong(url, id)
+    }
+
+    const prevSong = () => {
+        const currentSong = state.songs.filter(song => song.props.data.id === state.songId)[0]
+        let index = state.songs.indexOf(currentSong)
+        if (index === 0) {
+            index = state.songs.length - 1
+        } else {
+            index--
+        }
+        const nextSong = state.songs[index]
         console.log(nextSong)
         const id = nextSong.props.data.id
         const url = nextSong.props.data.audioUrl
         playSong(url, id)
     }
+
+    const methods = [nextSong, prevSong]
 
     useEffect(()=> {
         if (state.isLoading) {
@@ -82,7 +98,7 @@ export default function SingleAlbum(props) {
                 </tbody>
               </table>
             </div>
-            {state.playing ? <Player method={nextSong} data={audio} /> : null}
+            {state.playing ? <Player methods={methods} data={audio} /> : null}
         </div>
     )
 }

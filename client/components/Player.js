@@ -32,12 +32,12 @@ export default function Player(props) {
     <div id='player-container'>
       <div id='player-controls'>
         <div className='row center'>
-          <i className='fa fa-step-backward'></i>
+          <i onClick={props.methods[1]} className='fa fa-step-backward'></i>
           <div onClick={()=> toggle()}>
           <i onClick={state.playing ? pause : play}
             className={state.playing ? 'fa fa-pause-circle' : 'fa fa-play-circle'}></i>
           </div>
-          <i onClick={props.method} className='fa fa-step-forward'></i>
+          <i onClick={props.methods[0]} className='fa fa-step-forward'></i>
         </div>
       </div>
     </div>
