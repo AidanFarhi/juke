@@ -73,6 +73,9 @@ export default function SingleAlbum(props) {
         if (state.isLoading) {
             getSongs(0, null)
         }
+        audio.addEventListener('ended', ()=> {
+            nextSong()
+        })
     })
 
     return (
