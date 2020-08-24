@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../client/components/Sidebar'
 import AllAlbums from '../client/components/AllAlbums'
-import Player from '../client/components/Player'
 import SingelAlbum from '../client/components/SingleAlbum'
 
 export default function Main() {
@@ -53,7 +52,6 @@ export default function Main() {
       {!state.albumSelected ? 
         <AllAlbums method={getAlbum} albums={state.albums}/> : 
         <SingelAlbum data={state.selectedAlbum}/>}
-      {/* The music starts here! */}
     </div>
   )
 }

@@ -38,10 +38,18 @@ export default function SingleAlbum(props) {
     }
 
     const nextSong = () => {
-        const song = state.songs.filter(song => song.props.data.id === state.songId + 1)[0]
-        console.log(song)
-        const url = song.props.data.audioUrl
-        const id =  song.props.data.id
+        const currentSong = state.songs.filter(song => song.props.data.id === state.songId)[0]
+        let index = state.songs.indexOf(currentSong)
+        const length = state.songs.length - 1
+        if (index + 1 > length) {
+            index = 0
+        } else {
+            index++
+        }
+        const nextSong = state.songs[index]
+        console.log(nextSong)
+        const id = nextSong.props.data.id
+        const url = nextSong.props.data.audioUrl
         playSong(url, id)
     }
 
