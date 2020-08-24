@@ -8,7 +8,8 @@ export default function SingleAlbum(props) {
     const [state, setState] = useState({
         songs: [],
         isLoading: true,
-        playing: false
+        playing: false,
+        songId: 0
     })
 
     const getSongs = (id) => {
@@ -23,7 +24,8 @@ export default function SingleAlbum(props) {
                 return <Song key={i} data={song} method={playSong} className={song.id === id ? 'active' : null}/>
             }),
             isLoading: false,
-            playing: toPlay
+            playing: toPlay,
+            songId: id
         })
     }
     
@@ -33,6 +35,14 @@ export default function SingleAlbum(props) {
         audio.load();
         audio.play();
         getSongs(id) 
+    }
+
+    const nextSong = () => {
+        const song = state.songs.filter(song => song.props.data.id === state.songId + 1)[0]
+        console.log(song)
+        const url = song.props.data.audioUrl
+        const id =  song.props.data.id
+        playSong(url, id)
     }
 
     useEffect(()=> {
@@ -64,7 +74,7 @@ export default function SingleAlbum(props) {
                 </tbody>
               </table>
             </div>
-            {state.playing ? <Player /> : null}
+            {state.playing ? <Player method={nextSong} data={audio} /> : null}
         </div>
     )
 }
